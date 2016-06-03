@@ -1,0 +1,6 @@
+framework module AlamofireUIManager {
+  umbrella header "AlamofireUIManager-umbrella.h"
+
+  export *
+  module * { export * }
+}

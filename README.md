@@ -11,14 +11,40 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
+## Requirements
+
+- iOS 8.0+ / Mac OS X 10.9+ / tvOS 9.0+ / watchOS 2.0+
+- Xcode 7.3+
+
 ## Installation
 
-AlamofireUIManager is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
+### CocoaPods
+
+[CocoaPods](http://cocoapods.org) is a dependency manager for Cocoa projects. You can install it with the following command:
+
+```bash
+$ gem install cocoapods
+```
+
+> CocoaPods 0.39.0+ is required to build AlamofireUIManager
+
+To integrate AlamofireRouter into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
-pod "AlamofireUIManager"
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '8.0'
+use_frameworks!
+
+pod 'AlamofireUIManager'
 ```
+
+Then, run the following command:
+
+```bash
+$ pod install
+```
+
+## Usage
 
 ## Author
 

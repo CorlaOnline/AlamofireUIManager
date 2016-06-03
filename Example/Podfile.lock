@@ -1,0 +1,16 @@
+PODS:
+  - AlamofireUIManager (0.1.0)
+
+DEPENDENCIES:
+  - AlamofireUIManager (from `../`)
+
+EXTERNAL SOURCES:
+  AlamofireUIManager:
+    :path: ../
+
+SPEC CHECKSUMS:
+  AlamofireUIManager: 978cdbd2dfa57a4ba0efa9189b2c72b74b932a05
+
+PODFILE CHECKSUM: 75dcdeb51ac8acb35bea76444010b08f4a3b08e0
+
+COCOAPODS: 1.0.0

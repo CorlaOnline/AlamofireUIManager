@@ -1,0 +1,22 @@
+{
+  "name": "AlamofireUIManager",
+  "version": "0.1.0",
+  "summary": "A short description of AlamofireUIManager.",
+  "description": "TODO: Add long description of the pod here.",
+  "homepage": "https://github.com/<GITHUB_USERNAME>/AlamofireUIManager",
+  "license": {
+    "type": "MIT",
+    "file": "LICENSE"
+  },
+  "authors": {
+    "Alex Corlatti": "alex.corlatti@gmail.com"
+  },
+  "source": {
+    "git": "https://github.com/<GITHUB_USERNAME>/AlamofireUIManager.git",
+    "tag": "0.1.0"
+  },
+  "platforms": {
+    "ios": "8.0"
+  },
+  "source_files": "AlamofireUIManager/Classes/**/*"
+}
