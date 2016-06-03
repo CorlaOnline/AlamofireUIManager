@@ -25,11 +25,11 @@ public protocol AlamofireUIManagerDelegate {
 
 public class AlamofireUIManager {
 
-    let manager = Alamofire.Manager.sharedInstance
+    let AFManager = Alamofire.Manager.sharedInstance
 
-    static let sharedInstance = AlamofireUIManager()
+    public static let sharedInstance = AlamofireUIManager()
 
-    var delegate: AlamofireUIManagerDelegate?
+    public var delegate: AlamofireUIManagerDelegate?
 
     var activeConnection = 0
     var progressAlert: UIView?
@@ -79,7 +79,7 @@ public class AlamofireUIManager {
 
         addConnection(showSpinner, spinnerTitle: spinnerTitle, spinnerSubTitle: spinnerSubTitle)
 
-        manager
+        AFManager
             .request(request)
             .responseJSON() { response in
 
