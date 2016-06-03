@@ -8,28 +8,28 @@
 import Alamofire
 import SwiftyJSON
 
-public typealias ACRequestCompletionHandler = JSON -> Void
-public typealias ACRequestErrorHandler = NSError? -> Void
-public typealias ACRequestCompletionVoid = Void -> Void
+public typealias AFRequestCompletionHandler = JSON -> Void
+public typealias AFRequestErrorHandler = NSError? -> Void
+public typealias AFRequestCompletionVoid = Void -> Void
 
-public protocol ACAlamofireManagerDelegate {
+public protocol AlamofireUIManagerDelegate {
 
     func createSpinner() -> UIView
     func closeSpinner(spinner: UIView?)
 
-    func checkJson(json: JSON, showError: Bool, completionHandler: ACRequestCompletionHandler, errorHandler: ACRequestErrorHandler)
+    func checkJson(json: JSON, showError: Bool, completionHandler: AFRequestCompletionHandler, errorHandler: AFRequestErrorHandler)
 
-    func manageAlertError(error: NSError?, completition: ACRequestCompletionVoid)
+    func manageAlertError(error: NSError?, completition: AFRequestCompletionVoid)
 
 }
 
-public class ACAlamofireManager {
+public class AlamofireUIManager {
 
     let manager = Alamofire.Manager.sharedInstance
 
-    static let sharedInstance = ACAlamofireManager()
+    static let sharedInstance = AlamofireUIManager()
 
-    var delegate: ACAlamofireManagerDelegate?
+    var delegate: AlamofireUIManagerDelegate?
 
     var activeConnection = 0
     var progressAlert: UIView?
@@ -75,7 +75,7 @@ public class ACAlamofireManager {
 
     }
 
-    public func request(request: URLRequestConvertible, showSpinner: Bool = true, showError: Bool = true, spinnerTitle: String = "", spinnerSubTitle: String = "", completionHandler: (ACRequestCompletionHandler), errorHandler: (ACRequestErrorHandler) = { _ in }) {
+    public func request(request: URLRequestConvertible, showSpinner: Bool = true, showError: Bool = true, spinnerTitle: String = "", spinnerSubTitle: String = "", completionHandler: (AFRequestCompletionHandler), errorHandler: (AFRequestErrorHandler) = { _ in }) {
 
         addConnection(showSpinner, spinnerTitle: spinnerTitle, spinnerSubTitle: spinnerSubTitle)
 
@@ -127,7 +127,7 @@ public class ACAlamofireManager {
 
     }
 
-    func errorDetected(error error: NSError, showError: Bool, completition: ACRequestCompletionVoid) {
+    func errorDetected(error error: NSError, showError: Bool, completition: AFRequestCompletionVoid) {
 
         if !anAlertIsShowed && showError {
 
