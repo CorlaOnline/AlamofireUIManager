@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'AlamofireUIManager_Example' do
+  pod 'AlamofireUIManager', :path => '../'
+
+  target 'AlamofireUIManager_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
