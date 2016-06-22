@@ -85,8 +85,6 @@ public class AlamofireUIManager {
 
                 self.removeConnection()
 
-                print(response.result.value)
-
                 switch response.result {
 
                 case .Success:

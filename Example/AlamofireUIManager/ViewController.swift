@@ -8,16 +8,32 @@
 
 import UIKit
 import AlamofireUIManager
+import SwiftyJSON
+import Alamofire
 
 class ViewController: UIViewController {
 
-    let ACManager = ACAlamofireManager.sharedInstance
+    @IBOutlet weak var resultLabel: UILabel!
+
+    let netManager = AlamofireUIManager.sharedInstance
 
     override func viewDidLoad() {
 
         super.viewDidLoad()
 
-        ACManager.delegate = self
+        netManager.delegate = self
+
+        let URL = NSURL(string: "http://jsonplaceholder.typicode.com/posts/1")!
+        let mutableURLRequest = NSMutableURLRequest(URL: URL)
+        mutableURLRequest.HTTPMethod = "GET"
+
+        netManager.request(mutableURLRequest, completionHandler: { json in
+
+            print(json)
+            
+            self.resultLabel.text = json["body"].stringValue
+
+        })
 
     }
 
@@ -75,7 +91,7 @@ extension ViewController: AlamofireUIManagerDelegate {
 
         let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { _ in
 
-            self.ACManager.closeAlert()
+            self.netManager.closeAlert()
             completition()
 
         })
