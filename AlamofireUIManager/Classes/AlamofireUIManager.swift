@@ -45,7 +45,7 @@ public class AlamofireUIManager {
 
         if activeConnection == 1 {
 
-            #if !TARGET_OS_TV
+            #if os(iOS)
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             #endif
             
@@ -65,7 +65,7 @@ public class AlamofireUIManager {
 
         if activeConnection == 0 {
 
-            #if !TARGET_OS_TV
+            #if os(iOS)
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             #endif
             
