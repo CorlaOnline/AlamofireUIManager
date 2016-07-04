@@ -45,8 +45,10 @@ public class AlamofireUIManager {
 
         if activeConnection == 1 {
 
+            #if os(iOS)
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
-
+            #endif
+            
             if showSpinner {
 
                 progressAlert = delegate?.createSpinner()
@@ -63,8 +65,10 @@ public class AlamofireUIManager {
 
         if activeConnection == 0 {
 
+            #if os(iOS)
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
-
+            #endif
+            
             if (progressAlert != nil) {
 
                 delegate?.closeSpinner(progressAlert)
