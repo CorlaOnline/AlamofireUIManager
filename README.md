@@ -11,9 +11,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 ## Requirements
 
-## Requirements
-
-- iOS 8.0+ / Mac OS X 10.9+ / tvOS 9.0+ / watchOS 2.0+
+- iOS 8.0+ / tvOS 9.0+
 - Xcode 7.3+
 
 ## Installation
@@ -45,6 +43,100 @@ $ pod install
 ```
 
 ## Usage
+In your viewcontroller create the shared instance of the ```
+AlamofireUIManager``` like in this way
+
+```swift
+class MyViewController: UIViewController {
+
+	let netManager = AlamofireUIManager.sharedInstance
+	...
+	
+```
+
+In ``` viewDidLoad() ``` method set the delegate
+
+```swift
+override func viewDidLoad() {
+
+	super.viewDidLoad()
+
+   	netManager.delegate = self
+   	...
+	
+```
+
+Implements the delegate methods:
+
+*  ```createSpinner() -> UIView``` customize the view during loading data
+*  ```closeSpinner(spinner: UIView?)``` for removing your customized view
+*  ```checkJson(json: JSON, showError: Bool, completionHandler: AFRequestCompletionHandler, errorHandler: AFRequestErrorHandler) {``` for cheching the JSON response before passing it to the completition handler
+*  ```manageAlertError(error: NSError?, completition: AFRequestCompletionVoid)``` customize the alert view
+
+For example:
+
+```swift
+extension MyViewController: AlamofireUIManagerDelegate {
+
+    func createSpinner() -> UIView {
+
+        let act  = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
+        act.center = self.view.center
+        act.activityIndicatorViewStyle = .Gray
+
+        self.view.addSubview(act)
+
+        act.startAnimating()
+
+        return act
+
+    }
+
+    func closeSpinner(spinner: UIView?) {
+
+        guard spinner != nil else { return }
+
+        if let act = spinner as? UIActivityIndicatorView {
+
+            act.stopAnimating()
+            act.removeFromSuperview()
+
+        }
+
+    }
+
+    func checkJson(json: JSON, showError: Bool, completionHandler: AFRequestCompletionHandler, errorHandler: AFRequestErrorHandler) {
+
+        if let errorStr = json["error"]["message"].string { // Probably authorization required
+
+            let error = NSError(domain: "json", code: 401, userInfo: ["info": errorStr])
+
+            errorHandler(error)
+
+        } else { completionHandler(json) }
+
+    }
+
+    func manageAlertError(error: NSError?, completition: AFRequestCompletionVoid) {
+
+        let alertController = UIAlertController(title: "Error", message: error?.description, preferredStyle: .Alert)
+
+        let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { _ in
+
+            self.netManager.closeAlert()
+            completition()
+
+        })
+
+        alertController.addAction(defaultAction)
+
+        presentViewController(alertController, animated: true, completion: nil)
+
+    }
+
+}
+	
+```
 
 ## Author
 

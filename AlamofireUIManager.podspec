@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AlamofireUIManager'
-  s.version          = '0.1.0'
+  s.version          = '0.1.1'
   s.summary          = 'A simple manager for Alamofire requests'
 
 # This description is used to generate tags and improve search results.
@@ -32,7 +32,7 @@ s.social_media_url = 'https://twitter.com/corlaonline'
   s.tvos.deployment_target = '9.0'
 
   s.source_files = 'AlamofireUIManager/Classes/**/*'
-  
+
   # s.resource_bundles = {
   #   'AlamofireUIManager' => ['AlamofireUIManager/Assets/*.png']
   # }
