@@ -48,7 +48,7 @@ public class AlamofireUIManager {
             #if os(iOS)
             UIApplication.sharedApplication().networkActivityIndicatorVisible = true
             #endif
-            
+
             if showSpinner {
 
                 progressAlert = delegate?.createSpinner()
@@ -68,7 +68,7 @@ public class AlamofireUIManager {
             #if os(iOS)
             UIApplication.sharedApplication().networkActivityIndicatorVisible = false
             #endif
-            
+
             if (progressAlert != nil) {
 
                 delegate?.closeSpinner(progressAlert)
@@ -139,7 +139,7 @@ public class AlamofireUIManager {
 
         } else {
 
-            delegate?.manageAlertError(error, completition: { completition() })
+            completition()
 
         }
 

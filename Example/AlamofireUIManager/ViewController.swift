@@ -27,11 +27,16 @@ class ViewController: UIViewController {
         let mutableURLRequest = NSMutableURLRequest(URL: URL)
         mutableURLRequest.HTTPMethod = "GET"
 
-        netManager.request(mutableURLRequest, completionHandler: { json in
+        netManager.request(mutableURLRequest, showError: false, completionHandler: { json in
 
             print(json)
-            
+
             self.resultLabel.text = json["body"].stringValue
+
+            }, errorHandler: { error in
+
+                print("Error: \(error)")
+
 
         })
 
@@ -48,7 +53,7 @@ extension ViewController: AlamofireUIManagerDelegate {
 
     func createSpinner() -> UIView {
 
-        let act  = UIActivityIndicatorView(frame: CGRect(x: 50, y: 50, width: 50, height: 50))
+        let act  = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         act.center = self.view.center
         act.activityIndicatorViewStyle = .Gray
 
