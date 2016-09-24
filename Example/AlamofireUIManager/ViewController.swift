@@ -23,11 +23,7 @@ class ViewController: UIViewController {
 
         netManager.delegate = self
 
-        let URL = NSURL(string: "http://jsonplaceholder.typicode.com/posts/1")!
-        let mutableURLRequest = NSMutableURLRequest(URL: URL)
-        mutableURLRequest.HTTPMethod = "GET"
-
-        netManager.request(mutableURLRequest, showError: false, completionHandler: { json in
+        netManager.request(request: "http://jsonplaceholder.typicode.com/posts/1", showError: false, completionHandler: { json in
 
             print(json)
 
@@ -55,7 +51,7 @@ extension ViewController: AlamofireUIManagerDelegate {
 
         let act  = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         act.center = self.view.center
-        act.activityIndicatorViewStyle = .Gray
+        act.activityIndicatorViewStyle = .gray
 
         self.view.addSubview(act)
 
@@ -90,11 +86,11 @@ extension ViewController: AlamofireUIManagerDelegate {
 
     }
 
-    func manageAlertError(error: NSError?, completition: AFRequestCompletionVoid) {
+    func manageAlertError(error: NSError?, completition: @escaping AFRequestCompletionVoid) {
 
-        let alertController = UIAlertController(title: "Error", message: error?.description, preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "Error", message: error?.description, preferredStyle: .alert)
 
-        let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { _ in
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
 
             self.netManager.closeAlert()
             completition()
@@ -103,7 +99,7 @@ extension ViewController: AlamofireUIManagerDelegate {
 
         alertController.addAction(defaultAction)
 
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
 
     }
 
