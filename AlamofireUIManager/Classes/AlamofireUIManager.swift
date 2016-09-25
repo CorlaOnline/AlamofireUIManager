@@ -8,9 +8,9 @@
 import Alamofire
 import SwiftyJSON
 
-public typealias AFRequestCompletionHandler = JSON -> Void
-public typealias AFRequestErrorHandler = NSError? -> Void
-public typealias AFRequestCompletionVoid = Void -> Void
+public typealias AFRequestCompletionHandler = (JSON) -> Void
+public typealias AFRequestErrorHandler = (NSError?) -> Void
+public typealias AFRequestCompletionVoid = (Void) -> Void
 
 public protocol AlamofireUIManagerDelegate {
 
@@ -19,14 +19,14 @@ public protocol AlamofireUIManagerDelegate {
 
     func checkJson(json: JSON, showError: Bool, completionHandler: AFRequestCompletionHandler, errorHandler: AFRequestErrorHandler)
 
-    func manageAlertError(error: NSError?, completition: AFRequestCompletionVoid)
+    func manageAlertError(error: NSError?, completition: @escaping AFRequestCompletionVoid)
 
 }
 
 public class AlamofireUIManager {
 
-    let AFManager = Alamofire.Manager.sharedInstance
-
+    let AFManager = Alamofire.SessionManager()
+    
     public static let sharedInstance = AlamofireUIManager()
 
     public var delegate: AlamofireUIManagerDelegate?
@@ -46,7 +46,7 @@ public class AlamofireUIManager {
         if activeConnection == 1 {
 
             #if os(iOS)
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             #endif
 
             if showSpinner {
@@ -66,12 +66,12 @@ public class AlamofireUIManager {
         if activeConnection == 0 {
 
             #if os(iOS)
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             #endif
 
             if (progressAlert != nil) {
 
-                delegate?.closeSpinner(progressAlert)
+                delegate?.closeSpinner(spinner: progressAlert)
 
             }
 
@@ -79,19 +79,19 @@ public class AlamofireUIManager {
 
     }
 
-    public func request(request: URLRequestConvertible, showSpinner: Bool = true, showError: Bool = true, spinnerTitle: String = "", spinnerSubTitle: String = "", completionHandler: (AFRequestCompletionHandler), errorHandler: (AFRequestErrorHandler) = { _ in }) {
+    public func request(request: String, method: Alamofire.HTTPMethod = .get ,showSpinner: Bool = true, showError: Bool = true, spinnerTitle: String = "", spinnerSubTitle: String = "", completionHandler: @escaping (AFRequestCompletionHandler), errorHandler: @escaping (AFRequestErrorHandler) = { _ in }) {
 
-        addConnection(showSpinner, spinnerTitle: spinnerTitle, spinnerSubTitle: spinnerSubTitle)
-
+        addConnection(showSpinner: showSpinner, spinnerTitle: spinnerTitle, spinnerSubTitle: spinnerSubTitle)
+        
         AFManager
-            .request(request)
+            .request(request, method: method)
             .responseJSON() { response in
 
                 self.removeConnection()
 
                 switch response.result {
 
-                case .Success:
+                case .success:
 
                     guard let value = response.result.value else {
 
@@ -105,7 +105,7 @@ public class AlamofireUIManager {
 
                     }
 
-                    self.delegate?.checkJson(JSON(value), showError: showError, completionHandler: { json in
+                    self.delegate?.checkJson(json: JSON(value), showError: showError, completionHandler: { json in
 
                         completionHandler(json)
 
@@ -117,11 +117,11 @@ public class AlamofireUIManager {
 
                     })
 
-                case .Failure(let error):
+                case .failure(let error):
 
-                    self.errorDetected(error: error,
+                    self.errorDetected(error: error as NSError,
                                     showError: showError,
-                                    completition: { errorHandler(error) })
+                                    completition: { errorHandler(error as NSError?) })
 
                 }
 
@@ -129,13 +129,13 @@ public class AlamofireUIManager {
 
     }
 
-    func errorDetected(error error: NSError, showError: Bool, completition: AFRequestCompletionVoid) {
+    func errorDetected(error error: NSError, showError: Bool, completition: @escaping AFRequestCompletionVoid) {
 
         if !anAlertIsShowed && showError {
 
             anAlertIsShowed = true
 
-            delegate?.manageAlertError(error, completition: { completition() })
+            delegate?.manageAlertError(error: error, completition: { completition() })
 
         } else {
 
