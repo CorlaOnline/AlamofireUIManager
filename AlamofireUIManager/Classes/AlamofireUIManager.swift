@@ -8,28 +8,28 @@
 import Alamofire
 import SwiftyJSON
 
-public typealias AFRequestCompletionHandler = JSON -> Void
-public typealias AFRequestErrorHandler = NSError? -> Void
-public typealias AFRequestCompletionVoid = Void -> Void
+public typealias AFRequestCompletionHandler = (JSON) -> Void
+public typealias AFRequestErrorHandler = (NSError?) -> Void
+public typealias AFRequestCompletionVoid = (Void) -> Void
 
 public protocol AlamofireUIManagerDelegate {
 
     func createSpinner() -> UIView
-    func closeSpinner(spinner: UIView?)
+    func closeSpinner(_ spinner: UIView?)
 
-    func checkJson(json: JSON, showError: Bool, completionHandler: AFRequestCompletionHandler, errorHandler: AFRequestErrorHandler)
+    func checkJson(_ json: JSON, showError: Bool, completionHandler: AFRequestCompletionHandler, errorHandler: AFRequestErrorHandler)
 
-    func manageAlertError(error: NSError?, completition: AFRequestCompletionVoid)
+    func manageAlertError(_ error: NSError?, completition: @escaping AFRequestCompletionVoid)
 
 }
 
-public class AlamofireUIManager {
+open class AlamofireUIManager {
 
-    let AFManager = Alamofire.Manager.sharedInstance
+    let AFManager = Alamofire.SessionManager.default
 
-    public static let sharedInstance = AlamofireUIManager()
+    open static let sharedInstance = AlamofireUIManager()
 
-    public var delegate: AlamofireUIManagerDelegate?
+    open var delegate: AlamofireUIManagerDelegate?
 
     var activeConnection = 0
     var progressAlert: UIView?
@@ -39,14 +39,14 @@ public class AlamofireUIManager {
 
     // MARK: - Connection Utility
 
-    func addConnection(showSpinner: Bool, spinnerTitle: String, spinnerSubTitle: String) {
+    func addConnection(_ showSpinner: Bool, spinnerTitle: String, spinnerSubTitle: String) {
 
         activeConnection += 1
 
         if activeConnection == 1 {
 
             #if os(iOS)
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = true
+            UIApplication.shared.isNetworkActivityIndicatorVisible = true
             #endif
 
             if showSpinner {
@@ -66,7 +66,7 @@ public class AlamofireUIManager {
         if activeConnection == 0 {
 
             #if os(iOS)
-            UIApplication.sharedApplication().networkActivityIndicatorVisible = false
+            UIApplication.shared.isNetworkActivityIndicatorVisible = false
             #endif
 
             if (progressAlert != nil) {
@@ -79,7 +79,7 @@ public class AlamofireUIManager {
 
     }
 
-    public func request(request: URLRequestConvertible, showSpinner: Bool = true, showError: Bool = true, spinnerTitle: String = "", spinnerSubTitle: String = "", completionHandler: (AFRequestCompletionHandler), errorHandler: (AFRequestErrorHandler) = { _ in }) {
+    open func request(_ request: URLRequestConvertible, showSpinner: Bool = true, showError: Bool = true, spinnerTitle: String = "", spinnerSubTitle: String = "", completionHandler: @escaping (AFRequestCompletionHandler), errorHandler: @escaping (AFRequestErrorHandler) = { _ in }) {
 
         addConnection(showSpinner, spinnerTitle: spinnerTitle, spinnerSubTitle: spinnerSubTitle)
 
@@ -91,7 +91,7 @@ public class AlamofireUIManager {
 
                 switch response.result {
 
-                case .Success:
+                case .success:
 
                     guard let value = response.result.value else {
 
@@ -117,11 +117,11 @@ public class AlamofireUIManager {
 
                     })
 
-                case .Failure(let error):
+                case .failure(let error):
 
-                    self.errorDetected(error: error,
+                    self.errorDetected(error: error as NSError,
                                     showError: showError,
-                                    completition: { errorHandler(error) })
+                                    completition: { errorHandler(error as NSError?) })
 
                 }
 
@@ -129,7 +129,7 @@ public class AlamofireUIManager {
 
     }
 
-    func errorDetected(error error: NSError, showError: Bool, completition: AFRequestCompletionVoid) {
+    func errorDetected(error: NSError, showError: Bool, completition: @escaping AFRequestCompletionVoid) {
 
         if !anAlertIsShowed && showError {
 
@@ -145,7 +145,7 @@ public class AlamofireUIManager {
 
     }
 
-    public func closeAlert() {
+    open func closeAlert() {
 
         anAlertIsShowed = false
 

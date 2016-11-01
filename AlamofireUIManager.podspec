@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AlamofireUIManager'
-  s.version          = '0.1.2'
+  s.version          = '1.0.0'
   s.summary          = 'A simple manager for Alamofire requests'
 
 # This description is used to generate tags and improve search results.
@@ -28,7 +28,7 @@ s.author           = { 'Alex Corlatti' => 'alex.corlatti@gmail.com' }
 s.source           = { :git => 'https://github.com/CorlaOnline/AlamofireUIManager.git', :tag => s.version.to_s }
 s.social_media_url = 'https://twitter.com/corlaonline'
 
-  s.ios.deployment_target = '8.0'
+  s.ios.deployment_target = '9.0'
   s.tvos.deployment_target = '9.0'
 
   s.source_files = 'AlamofireUIManager/Classes/**/*'
@@ -39,6 +39,6 @@ s.social_media_url = 'https://twitter.com/corlaonline'
 
   # s.public_header_files = 'Pod/Classes/**/*.h'
   # s.frameworks = 'UIKit', 'MapKit'
-  s.dependency 'Alamofire', '~> 3.2'
-  s.dependency 'SwiftyJSON'
+  s.dependency 'Alamofire', '~> 4'
+  s.dependency 'SwiftyJSON', '~> 3'
 end

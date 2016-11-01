@@ -23,9 +23,9 @@ class ViewController: UIViewController {
 
         netManager.delegate = self
 
-        let URL = NSURL(string: "http://jsonplaceholder.typicode.com/posts/1")!
-        let mutableURLRequest = NSMutableURLRequest(URL: URL)
-        mutableURLRequest.HTTPMethod = "GET"
+        let URL = Foundation.URL(string: "http://jsonplaceholder.typicode.com/posts/1")!
+        var mutableURLRequest = URLRequest(url: URL)
+        mutableURLRequest.httpMethod = HTTPMethod.get.rawValue
 
         netManager.request(mutableURLRequest, showError: false, completionHandler: { json in
 
@@ -36,6 +36,11 @@ class ViewController: UIViewController {
             }, errorHandler: { error in
 
                 print("Error: \(error)")
+                
+                self.manageAlertError(error, completition: { _ in
+                
+                
+                })
 
 
         })
@@ -55,7 +60,7 @@ extension ViewController: AlamofireUIManagerDelegate {
 
         let act  = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         act.center = self.view.center
-        act.activityIndicatorViewStyle = .Gray
+        act.activityIndicatorViewStyle = .gray
 
         self.view.addSubview(act)
 
@@ -65,7 +70,7 @@ extension ViewController: AlamofireUIManagerDelegate {
 
     }
 
-    func closeSpinner(spinner: UIView?) {
+    func closeSpinner(_ spinner: UIView?) {
 
         guard spinner != nil else { return }
 
@@ -78,7 +83,7 @@ extension ViewController: AlamofireUIManagerDelegate {
 
     }
 
-    func checkJson(json: JSON, showError: Bool, completionHandler: AFRequestCompletionHandler, errorHandler: AFRequestErrorHandler) {
+    func checkJson(_ json: JSON, showError: Bool, completionHandler: AFRequestCompletionHandler, errorHandler: AFRequestErrorHandler) {
 
         if let errorStr = json["error"]["message"].string { // Probably authorization required
 
@@ -90,11 +95,11 @@ extension ViewController: AlamofireUIManagerDelegate {
 
     }
 
-    func manageAlertError(error: NSError?, completition: AFRequestCompletionVoid) {
+    func manageAlertError(_ error: NSError?, completition: @escaping AFRequestCompletionVoid) {
 
-        let alertController = UIAlertController(title: "Error", message: error?.description, preferredStyle: .Alert)
+        let alertController = UIAlertController(title: "Error", message: error?.description, preferredStyle: .alert)
 
-        let defaultAction = UIAlertAction(title: "OK", style: .Default, handler: { _ in
+        let defaultAction = UIAlertAction(title: "OK", style: .default, handler: { _ in
 
             self.netManager.closeAlert()
             completition()
@@ -103,7 +108,7 @@ extension ViewController: AlamofireUIManagerDelegate {
 
         alertController.addAction(defaultAction)
 
-        presentViewController(alertController, animated: true, completion: nil)
+        present(alertController, animated: true, completion: nil)
 
     }
 

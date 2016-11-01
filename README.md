@@ -5,14 +5,16 @@
 [![License](https://img.shields.io/cocoapods/l/AlamofireUIManager.svg?style=flat)](http://cocoapods.org/pods/AlamofireUIManager)
 [![Platform](https://img.shields.io/cocoapods/p/AlamofireUIManager.svg?style=flat)](http://cocoapods.org/pods/AlamofireUIManager)
 
+AlamofireRouter is a simple Alamofire router. If you need swift 2.3 version, use the 0.1.0 pod version
+
 ## Example
 
 To run the example project, clone the repo, and run `pod install` from the Example directory first.
 
 ## Requirements
 
-- iOS 8.0+ / tvOS 9.0+
-- Xcode 7.3+
+- iOS 9.0+ / tvOS 9.0+
+- Xcode 8.0+
 
 ## Installation
 
@@ -24,13 +26,13 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 $ gem install cocoapods
 ```
 
-> CocoaPods 0.39.0+ is required to build AlamofireUIManager
+> CocoaPods 1.0.0+ is required to build AlamofireUIManager
 
 To integrate AlamofireRouter into your Xcode project using CocoaPods, specify it in your `Podfile`:
 
 ```ruby
 source 'https://github.com/CocoaPods/Specs.git'
-platform :ios, '8.0'
+platform :ios, '9.0'
 use_frameworks!
 
 pod 'AlamofireUIManager'
@@ -71,7 +73,7 @@ Implements the delegate methods:
 *  ```createSpinner() -> UIView``` customize the view during loading data
 *  ```closeSpinner(spinner: UIView?)``` for removing your customized view
 *  ```checkJson(json: JSON, showError: Bool, completionHandler: AFRequestCompletionHandler, errorHandler: AFRequestErrorHandler) {``` for cheching the JSON response before passing it to the completition handler
-*  ```manageAlertError(error: NSError?, completition: AFRequestCompletionVoid)``` customize the alert view
+*  ```manageAlertError(error: NSError?, completition: @escaping AFRequestCompletionVoid)``` customize the alert view
 
 For example:
 
@@ -117,7 +119,7 @@ extension MyViewController: AlamofireUIManagerDelegate {
 
     }
 
-    func manageAlertError(error: NSError?, completition: AFRequestCompletionVoid) {
+    func manageAlertError(error: NSError?, completition: @escaping AFRequestCompletionVoid) {
 
         let alertController = UIAlertController(title: "Error", message: error?.description, preferredStyle: .Alert)
 

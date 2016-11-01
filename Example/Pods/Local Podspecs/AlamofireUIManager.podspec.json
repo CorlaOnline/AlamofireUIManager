@@ -1,6 +1,6 @@
 {
   "name": "AlamofireUIManager",
-  "version": "0.1.0",
+  "version": "0.1.2",
   "summary": "A simple manager for Alamofire requests",
   "description": "TODO: Add long description of the pod here.",
   "homepage": "https://github.com/CorlaOnline/AlamofireUIManager",
@@ -13,19 +13,20 @@
   },
   "source": {
     "git": "https://github.com/CorlaOnline/AlamofireUIManager.git",
-    "tag": "0.1.0"
+    "tag": "0.1.2"
   },
   "social_media_url": "https://twitter.com/corlaonline",
   "platforms": {
-    "ios": "8.0"
+    "ios": "9.0",
+    "tvos": "9.0"
   },
   "source_files": "AlamofireUIManager/Classes/**/*",
   "dependencies": {
     "Alamofire": [
-      "~> 3.2"
+      "~> 4"
     ],
     "SwiftyJSON": [
-
+      "~> 3"
     ]
   }
 }
