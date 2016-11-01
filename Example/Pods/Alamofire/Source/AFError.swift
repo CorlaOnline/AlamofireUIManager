@@ -144,11 +144,7 @@ extension AFError {
     /// Returns whether the AFError is a parameter encoding error. When `true`, the `underlyingError` property will
     /// contain the associated value.
     public var isParameterEncodingError: Bool {
-<<<<<<< HEAD
         if case .parameterEncodingFailed = self { return true }
-=======
-        if case .multipartEncodingFailed = self { return true }
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
         return false
     }
 
@@ -301,13 +297,8 @@ extension AFError.ResponseValidationFailureReason {
 
     var responseContentType: String? {
         switch self {
-<<<<<<< HEAD
         case .unacceptableContentType(_, let responseType):
             return responseType
-=======
-        case .unacceptableContentType(_, let reponseType):
-            return reponseType
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
         default:
             return nil
         }

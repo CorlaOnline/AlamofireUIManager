@@ -19,25 +19,15 @@ public protocol AlamofireUIManagerDelegate {
 
     func checkJson(_ json: JSON, showError: Bool, completionHandler: AFRequestCompletionHandler, errorHandler: AFRequestErrorHandler)
 
-<<<<<<< HEAD
     func manageAlertError(_ error: NSError?, completition: @escaping AFRequestCompletionVoid)
-=======
-    func manageAlertError(error: NSError?, completition: @escaping AFRequestCompletionVoid)
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 
 }
 
 open class AlamofireUIManager {
 
-<<<<<<< HEAD
     let AFManager = Alamofire.SessionManager.default
 
     open static let sharedInstance = AlamofireUIManager()
-=======
-    let AFManager = Alamofire.SessionManager()
-    
-    public static let sharedInstance = AlamofireUIManager()
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 
     open var delegate: AlamofireUIManagerDelegate?
 
@@ -81,7 +71,7 @@ open class AlamofireUIManager {
 
             if (progressAlert != nil) {
 
-                delegate?.closeSpinner(spinner: progressAlert)
+                delegate?.closeSpinner(progressAlert)
 
             }
 
@@ -89,18 +79,12 @@ open class AlamofireUIManager {
 
     }
 
-<<<<<<< HEAD
     open func request(_ request: URLRequestConvertible, showSpinner: Bool = true, showError: Bool = true, spinnerTitle: String = "", spinnerSubTitle: String = "", completionHandler: @escaping (AFRequestCompletionHandler), errorHandler: @escaping (AFRequestErrorHandler) = { _ in }) {
 
         addConnection(showSpinner, spinnerTitle: spinnerTitle, spinnerSubTitle: spinnerSubTitle)
-=======
-    public func request(request: String, method: Alamofire.HTTPMethod = .get ,showSpinner: Bool = true, showError: Bool = true, spinnerTitle: String = "", spinnerSubTitle: String = "", completionHandler: @escaping (AFRequestCompletionHandler), errorHandler: @escaping (AFRequestErrorHandler) = { _ in }) {
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
-
-        addConnection(showSpinner: showSpinner, spinnerTitle: spinnerTitle, spinnerSubTitle: spinnerSubTitle)
         
         AFManager
-            .request(request, method: method)
+            .request(request)
             .responseJSON() { response in
 
                 self.removeConnection()
@@ -121,7 +105,7 @@ open class AlamofireUIManager {
 
                     }
 
-                    self.delegate?.checkJson(json: JSON(value), showError: showError, completionHandler: { json in
+                    self.delegate?.checkJson(JSON(value), showError: showError, completionHandler: { json in
 
                         completionHandler(json)
 
@@ -145,17 +129,13 @@ open class AlamofireUIManager {
 
     }
 
-<<<<<<< HEAD
     func errorDetected(error: NSError, showError: Bool, completition: @escaping AFRequestCompletionVoid) {
-=======
-    func errorDetected(error error: NSError, showError: Bool, completition: @escaping AFRequestCompletionVoid) {
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 
         if !anAlertIsShowed && showError {
 
             anAlertIsShowed = true
 
-            delegate?.manageAlertError(error: error, completition: { completition() })
+            delegate?.manageAlertError(error, completition: { completition() })
 
         } else {
 

@@ -82,11 +82,7 @@ if let userName = json[999999]["wrong_key"]["wrong_name"].string {
 
 ## Requirements
 
-<<<<<<< HEAD
 - iOS 8.0+ | macOS 10.10+ | tvOS 9.0+ | watchOS 2.0+
-=======
-- iOS 7.0+ / OS X 10.9+
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 - Xcode 8
 
 ##Integration
@@ -119,11 +115,7 @@ let package = Package(
     name: "YOUR_PROJECT_NAME",
     targets: [],
     dependencies: [
-<<<<<<< HEAD
         .Package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", versions: Version(1,0,0)..<Version(2, .max, .max)),
-=======
-        .Package(url: "https://github.com/SwiftyJSON/SwiftyJSON.git", versions: "2.3.3" ..< Version.max)
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
     ]
 )
 ```

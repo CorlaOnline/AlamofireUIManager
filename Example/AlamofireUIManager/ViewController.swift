@@ -23,15 +23,11 @@ class ViewController: UIViewController {
 
         netManager.delegate = self
 
-<<<<<<< HEAD
         let URL = Foundation.URL(string: "http://jsonplaceholder.typicode.com/posts/1")!
         var mutableURLRequest = URLRequest(url: URL)
         mutableURLRequest.httpMethod = HTTPMethod.get.rawValue
 
         netManager.request(mutableURLRequest, showError: false, completionHandler: { json in
-=======
-        netManager.request(request: "http://jsonplaceholder.typicode.com/posts/1", showError: false, completionHandler: { json in
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 
             print(json)
 
@@ -99,11 +95,7 @@ extension ViewController: AlamofireUIManagerDelegate {
 
     }
 
-<<<<<<< HEAD
     func manageAlertError(_ error: NSError?, completition: @escaping AFRequestCompletionVoid) {
-=======
-    func manageAlertError(error: NSError?, completition: @escaping AFRequestCompletionVoid) {
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 
         let alertController = UIAlertController(title: "Error", message: error?.description, preferredStyle: .alert)
 

@@ -1,17 +1,9 @@
 PODS:
-<<<<<<< HEAD
   - Alamofire (4.0.1)
-  - AlamofireUIManager (0.1.2):
+  - AlamofireUIManager (1.0.0):
     - Alamofire (~> 4)
     - SwiftyJSON (~> 3)
   - SwiftyJSON (3.1.1)
-=======
-  - Alamofire (4.0.0)
-  - AlamofireUIManager (0.1.3):
-    - Alamofire (~> 4.0.0)
-    - SwiftyJSON (~> 3.0.0)
-  - SwiftyJSON (3.0.0)
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 
 DEPENDENCIES:
   - AlamofireUIManager (from `../`)
@@ -21,20 +13,10 @@ EXTERNAL SOURCES:
     :path: ../
 
 SPEC CHECKSUMS:
-<<<<<<< HEAD
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
-  AlamofireUIManager: 4f6e3c76f98232e7d529429ee4998b2ccc6a131b
+  AlamofireUIManager: 6f9ab47f100154b3e8fe836c350f9d2c4bd7d325
   SwiftyJSON: f0be2e604f83e8405a624e9f891898bf6ed4e019
 
 PODFILE CHECKSUM: 75dcdeb51ac8acb35bea76444010b08f4a3b08e0
 
 COCOAPODS: 1.1.1
-=======
-  Alamofire: fef59f00388f267e52d9b432aa5d93dc97190f14
-  AlamofireUIManager: 7a183ecc46092932be19fa6e065047f670ef55d4
-  SwiftyJSON: f57b2b44bc166617372d1c70773591fe9f0f5fd4
-
-PODFILE CHECKSUM: 75dcdeb51ac8acb35bea76444010b08f4a3b08e0
-
-COCOAPODS: 1.1.0.rc.2
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710

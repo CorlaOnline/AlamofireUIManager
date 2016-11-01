@@ -60,51 +60,31 @@ public struct JSON {
      
      - parameter data:  The NSData used to convert to json.Top level object in data is an NSArray or NSDictionary
      - parameter opt:   The JSON serialization reading options. `.AllowFragments` by default.
-<<<<<<< HEAD
      - parameter error: The NSErrorPointer used to return the error. `nil` by default.
      
      - returns: The created JSON
      */
     public init(data:Data, options opt: JSONSerialization.ReadingOptions = .allowFragments, error: NSErrorPointer = nil) {
-=======
-     - parameter error: error The NSErrorPointer used to return the error. `nil` by default.
-     
-     - returns: The created JSON
-     */
-    public init(data:Data, options opt: JSONSerialization.ReadingOptions = .allowFragments, error: NSErrorPointer? = nil) {
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
         do {
             let object: Any = try JSONSerialization.jsonObject(with: data, options: opt)
             self.init(object)
         } catch let aError as NSError {
             if error != nil {
-<<<<<<< HEAD
                 error?.pointee = aError
-=======
-                error??.pointee = aError
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             }
             self.init(NSNull())
         }
     }
     
     /**
-<<<<<<< HEAD
      Creates a JSON from JSON string
-=======
-     Create a JSON from JSON string
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
      - parameter string: Normal json string like '{"a":"b"}'
      
      - returns: The created JSON
      */
     public static func parse(_ string:String) -> JSON {
         return string.data(using: String.Encoding.utf8)
-<<<<<<< HEAD
             .flatMap{ JSON(data: $0) } ?? JSON(NSNull())
-=======
-            .flatMap({JSON(data: $0)}) ?? JSON(NSNull())
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
     }
     
     /**
@@ -190,12 +170,9 @@ public struct JSON {
                 self.rawString = string
             case  _ as NSNull:
                 _type = .null
-<<<<<<< HEAD
             case let array as [JSON]:
                 _type = .array
                 self.rawArray = array.map { $0.object }
-=======
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             case let array as [Any]:
                 _type = .array
                 self.rawArray = array
@@ -209,27 +186,18 @@ public struct JSON {
         }
     }
     
-<<<<<<< HEAD
     /// JSON type
-=======
-    /// json type
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
     public var type: Type { get { return _type } }
     
     /// Error in JSON
     public var error: NSError? { get { return self._error } }
     
-<<<<<<< HEAD
     /// The static null JSON
-=======
-    /// The static null json
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
     @available(*, unavailable, renamed:"null")
     public static var nullJSON: JSON { get { return null } }
     public static var null: JSON { get { return JSON(NSNull()) } }
 }
 
-<<<<<<< HEAD
 public enum JSONIndex:Comparable
 {
     case array(Int)
@@ -246,37 +214,11 @@ public func ==(lhs: JSONIndex, rhs: JSONIndex) -> Bool
     case (.dictionary(let left), .dictionary(let right)):
         return left == right
     case (.null, .null): return true
-=======
-public enum JSONIndex:Comparable {
-    case array(Int)
-    case dictionary(DictionaryIndex<String, JSON>)
-    case null
-}
-
-public func ==(lhs: JSONIndex, rhs: JSONIndex) -> Bool {
-    switch (lhs, rhs) {
-    case (.array(let left), .array(let right)):
-        return left == right
-    case (.dictionary(let left), .dictionary(let right)):
-        return left == right
     default:
         return false
     }
 }
 
-public func <(lhs: JSONIndex, rhs: JSONIndex) -> Bool {
-    switch (lhs, rhs) {
-    case (.array(let left), .array(let right)):
-        return left < right
-    case (.dictionary(let left), .dictionary(let right)):
-        return left < right
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
-    default:
-        return false
-    }
-}
-
-<<<<<<< HEAD
 public func <(lhs: JSONIndex, rhs: JSONIndex) -> Bool
 {
     switch (lhs, rhs)
@@ -300,20 +242,10 @@ extension JSON: Collection
     {
         switch type
         {
-=======
-
-extension JSON: Collection{
-    
-    public typealias Index = JSONIndex
-    
-    public var startIndex: Index{
-        switch type {
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
         case .array:
             return .array(rawArray.startIndex)
         case .dictionary:
             return .dictionary(dictionaryValue.startIndex)
-<<<<<<< HEAD
         default:
             return .null
         }
@@ -355,43 +287,6 @@ extension JSON: Collection{
         case .dictionary(let idx):
             return dictionaryValue[idx]
         default:
-=======
-        default:
-            return .null
-        }
-    }
-    
-    public var endIndex: Index{
-        switch type {
-        case .array:
-            return .array(rawArray.endIndex)
-        case .dictionary:
-            return .dictionary(dictionaryValue.endIndex)
-        default:
-            return .null
-        }
-    }
-    
-    public func index(after i: Index) -> Index {
-        switch i {
-        case .array(let idx):
-            return .array(rawArray.index(after: idx))
-        case .dictionary(let idx):
-            return .dictionary(dictionaryValue.index(after: idx))
-        default:
-            return .null
-        }
-        
-    }
-    
-    public subscript (position: Index) -> (String, JSON) {
-        switch position {
-        case .array(let idx):
-            return (String(idx), JSON(self.rawArray[idx]))
-        case .dictionary(let idx):
-            return dictionaryValue[idx]
-        default:
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             return ("", JSON.null)
         }
     }
@@ -404,12 +299,8 @@ extension JSON: Collection{
 /**
  *  To mark both String and Int can be used in subscript.
  */
-<<<<<<< HEAD
 public enum JSONKey
 {
-=======
-public enum JSONKey {
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
     case index(Int)
     case key(String)
 }
@@ -495,11 +386,7 @@ extension JSON {
     }
     
     /**
-<<<<<<< HEAD
      Find a json in the complex data structures by using array of Int and/or String as path.
-=======
-     Find a json in the complex data structuresby using the Int/String's array.
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
      
      - parameter path: The target json's path. Example:
      
@@ -531,11 +418,7 @@ extension JSON {
     }
     
     /**
-<<<<<<< HEAD
      Find a json in the complex data structures by using array of Int and/or String as path.
-=======
-     Find a json in the complex data structures by using the Int/String's array.
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
      
      - parameter path: The target json's path. Example:
      
@@ -594,7 +477,6 @@ extension JSON: Swift.ExpressibleByFloatLiteral {
 }
 
 extension JSON: Swift.ExpressibleByDictionaryLiteral {
-<<<<<<< HEAD
     public init(dictionaryLiteral elements: (String, Any)...) {
         let array = elements
         self.init(dictionaryLiteral: array)
@@ -631,15 +513,6 @@ extension JSON: Swift.ExpressibleByDictionaryLiteral {
         }
         
         self.init(dict)
-=======
-    
-    public init(dictionaryLiteral elements: (String, Any)...) {
-        self.init(elements.reduce([String : Any](minimumCapacity: elements.count)){(dictionary: [String : Any], element:(String, Any)) -> [String : Any] in
-            var d = dictionary
-            d[element.0] = element.1
-            return d
-        } as Any)
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
     }
 }
 
@@ -770,17 +643,9 @@ extension JSON {
     //Optional [String : JSON]
     public var dictionary: [String : JSON]? {
         if self.type == .dictionary {
-<<<<<<< HEAD
             var d = [String : JSON](minimumCapacity: rawDictionary.count)
             for (key, value) in rawDictionary {
                 d[key] = JSON(value)
-=======
-            
-            return self.rawDictionary.reduce([String : JSON]()) { (dictionary: [String : JSON], element: (String, Any)) -> [String : JSON] in
-                var d = dictionary
-                d[element.0] = JSON(element.1)
-                return d
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             }
             return d
         } else {
@@ -960,15 +825,10 @@ extension JSON {
         }
     }
     public func exists() -> Bool{
-<<<<<<< HEAD
         if let errorValue = error, errorValue.code == ErrorNotExist ||
             errorValue.code == ErrorIndexOutOfBounds ||
             errorValue.code == ErrorWrongType {
                 return false
-=======
-        if let errorValue = error , errorValue.code == ErrorNotExist{
-            return false
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
         }
         return true
     }
@@ -983,12 +843,8 @@ extension JSON {
             switch self.type {
             case .string:
                 if let encodedString_ = self.rawString.addingPercentEncoding(withAllowedCharacters: CharacterSet.urlQueryAllowed) {
-<<<<<<< HEAD
                     // We have to use `Foundation.URL` otherwise it conflicts with the variable name.
                     return Foundation.URL(string: encodedString_)
-=======
-                    return NSURL(string: encodedString_)
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
                 } else {
                     return nil
                 }
@@ -1050,7 +906,6 @@ extension JSON {
         }
     }
     
-<<<<<<< HEAD
     public var int: Int?
     {
         get
@@ -1064,16 +919,6 @@ extension JSON {
                 self.object = NSNumber(value: newValue)
             } else
             {
-=======
-    public var int: Int? {
-        get {
-            return self.number?.intValue
-        }
-        set {
-            if let newValue = newValue {
-                self.object = NSNumber(value: newValue)
-            } else {
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
                 self.object = NSNull()
             }
         }
@@ -1385,12 +1230,7 @@ extension NSNumber {
     var isBool:Bool {
         get {
             let objCType = String(cString: self.objCType)
-<<<<<<< HEAD
             if (self.compare(trueNumber) == .orderedSame && objCType == trueObjCType) || (self.compare(falseNumber) == .orderedSame && objCType == falseObjCType){
-=======
-            if (self.compare(trueNumber) == ComparisonResult.orderedSame && objCType == trueObjCType)
-                || (self.compare(falseNumber) == ComparisonResult.orderedSame && objCType == falseObjCType){
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
                 return true
             } else {
                 return false
@@ -1406,11 +1246,7 @@ func ==(lhs: NSNumber, rhs: NSNumber) -> Bool {
     case (true, false):
         return false
     default:
-<<<<<<< HEAD
         return lhs.compare(rhs) == .orderedSame
-=======
-        return lhs.compare(rhs) == ComparisonResult.orderedSame
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
     }
 }
 
@@ -1426,11 +1262,7 @@ func <(lhs: NSNumber, rhs: NSNumber) -> Bool {
     case (true, false):
         return false
     default:
-<<<<<<< HEAD
         return lhs.compare(rhs) == .orderedAscending
-=======
-        return lhs.compare(rhs) == ComparisonResult.orderedAscending
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
     }
 }
 
@@ -1454,11 +1286,7 @@ func <=(lhs: NSNumber, rhs: NSNumber) -> Bool {
     case (true, false):
         return false
     default:
-<<<<<<< HEAD
         return lhs.compare(rhs) != .orderedDescending
-=======
-        return lhs.compare(rhs) != ComparisonResult.orderedDescending
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
     }
 }
 
@@ -1470,10 +1298,6 @@ func >=(lhs: NSNumber, rhs: NSNumber) -> Bool {
     case (true, false):
         return false
     default:
-<<<<<<< HEAD
         return lhs.compare(rhs) != .orderedAscending
-=======
-        return lhs.compare(rhs) != ComparisonResult.orderedAscending
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
     }
 }

@@ -23,10 +23,7 @@
 //
 
 import Dispatch
-<<<<<<< HEAD
 import Foundation
-=======
->>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 
 extension DispatchQueue {
     static var userInteractive: DispatchQueue { return DispatchQueue.global(qos: .userInteractive) }
