@@ -55,7 +55,11 @@ In order to keep Alamofire focused specifically on core networking implementatio
 
 ## Requirements
 
+<<<<<<< HEAD
 - iOS 9.0+ / macOS 10.11+ / tvOS 9.0+ / watchOS 2.0+
+=======
+- iOS 9.0+ / Mac OS X 10.11+ / tvOS 9.0+ / watchOS 2.0+
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 - Xcode 8.0+
 - Swift 3.0+
 
@@ -242,7 +246,11 @@ Alamofire.request("https://httpbin.org/get").response { response in
     print("Response: \(response.response)")
     print("Error: \(response.data)")
 
+<<<<<<< HEAD
     if let data = response.data, let utf8Text = String(data: data, encoding: .utf8) {
+=======
+    if let data = data, let utf8Text = String(data: data, encoding: .utf8) {
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
     	print("Data: \(utf8Text)")
     }
 }
@@ -311,7 +319,11 @@ Alamofire.request("https://httpbin.org/get")
 
 #### Response Handler Queue
 
+<<<<<<< HEAD
 Response handlers by default are executed on the main dispatch queue. However, a custom dispatch queue can be provided instead.
+=======
+Reponse handlers by default are executed on the main dispatch queue. However, a custom dispatch queue can be provided instead.
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 
 ```swift
 let utilityQueue = DispatchQueue.global(qos: .utility)
@@ -521,6 +533,7 @@ Alamofire.request("https://httpbin.org/headers", headers: headers).responseJSON 
 ```
 
 > For HTTP headers that do not change, it is recommended to set them on the `URLSessionConfiguration` so they are automatically applied to any `URLSessionTask` created by the underlying `URLSession`. For more information, see the [Session Manager Configurations](#session-manager-configurations) section.
+<<<<<<< HEAD
 
 The default Alamofire `SessionManager` provides a default set of headers for every `Request`. These include:
 
@@ -534,6 +547,21 @@ If you need to customize these headers, a custom `URLSessionManagerConfiguration
 
 Authentication is handled on the system framework level by [`URLCredential`](https://developer.apple.com/reference/foundation/nsurlcredential) and [`URLAuthenticationChallenge`](https://developer.apple.com/reference/foundation/urlauthenticationchallenge).
 
+=======
+
+The default Alamofire `SessionManager` provides a default set of headers for every `Request`. These include:
+
+- `Accept-Encoding`, which defaults to `gzip;q=1.0, compress;q=0.5`, per [RFC 7230 §4.2.3](https://tools.ietf.org/html/rfc7230#section-4.2.3).
+- `Accept-Language`, which defaults to up to the top 6 preferred languages on the system, formatted like `en;q=1.0`, per [RFC 7231 §5.3.5](https://tools.ietf.org/html/rfc7231#section-5.3.5).
+- `User-Agent`, which contains versioning information about the current app. For example: `iOS Example/1.0 (com.alamofire.iOS-Example; build:1; iOS 10.0.0) Alamofire/4.0.0`, per [RFC 7231 §5.5.3](https://tools.ietf.org/html/rfc7231#section-5.5.3).
+
+If you need to customize these headers, a custom `URLSessionManagerConfiguration` should be created, the `defaultHTTPHeaders` property updated and the configuration applied to a new `SessionManager` instance.
+
+### Authentication
+
+Authentication is handled on the system framework level by [`URLCredential`](https://developer.apple.com/reference/foundation/nsurlcredential) and [`URLAuthenticationChallenge`](https://developer.apple.com/reference/foundation/urlauthenticationchallenge).
+
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 **Supported Authentication Schemes**
 
 - [HTTP Basic](http://en.wikipedia.org/wiki/Basic_access_authentication)
@@ -561,6 +589,7 @@ Depending upon your server implementation, an `Authorization` header may also be
 ```swift
 let user = "user"
 let password = "password"
+<<<<<<< HEAD
 
 var headers: HTTPHeaders = [:]
 
@@ -568,6 +597,15 @@ if let authorizationHeader = Request.authorizationHeader(user: user, password: p
     headers[authorizationHeader.key] = authorizationHeader.value
 }
 
+=======
+
+var headers: HTTPHeaders = [:]
+
+if let authorizationHeader = Request.authorizationHeader(user: user, password: password) {
+    headers[authorizationHeader.key] = authorizationHeader.value
+}
+
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 Alamofire.request("https://httpbin.org/basic-auth/user/password", headers: headers)
     .responseJSON { response in
         debugPrint(response)
@@ -590,6 +628,7 @@ Alamofire.request("https://httpbin.org/basic-auth/\(user)/\(password)")
 ```
 
 > It is important to note that when using a `URLCredential` for authentication, the underlying `URLSession` will actually end up making two requests if a challenge is issued by the server. The first request will not include the credential which "may" trigger a challenge from the server. The challenge is then received by Alamofire, the credential is appended and the request is retried by the underlying `URLSession`.
+<<<<<<< HEAD
 
 ### Downloading Data to a File
 
@@ -609,6 +648,27 @@ Alamofire.download("https://httpbin.org/image/png").responseData { response in
 
 You can also provide a `DownloadFileDestination` closure to move the file from the temporary directory to a final destination. Before the temporary file is actually moved to the `destinationURL`, the `DownloadOptions` specified in the closure will be executed. The two currently supported `DownloadOptions` are:
 
+=======
+
+### Downloading Data to a File
+
+Requests made in Alamofire that fetch data from a server can download the data in-memory or on-disk. The `Alamofire.request` APIs used in all the examples so far always downloads the server data in-memory. This is great for smaller payloads because it's more efficient, but really bad for larger payloads because the download could run your entire application out-of-memory. Because of this, you can also use the `Alamofire.download` APIs to download the server data to a temporary file on-disk.
+
+```swift
+Alamofire.download("https://httpbin.org/image/png").responseData { response in
+	if let data = response.result.value {
+	    let image = UIImage(data: data)
+	}
+}
+```
+
+> The `Alamofire.download` APIs should also be used if you need to download data while your app is in the background. For more information, please see the [Session Manager Configurations](#session-manager-configurations) section.
+
+#### Download File Destination
+
+You can also provide a `DownloadFileDestination` closure to move the file from the temporary directory to a final destination. Before the temporary file is actually moved to the `destinationURL`, the `DownloadOptions` specified in the closure will be executed. The two currently supported `DownloadOptions` are:
+
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 - `.createIntermediateDirectories` - Creates intermediate directories for the destination URL if specified.
 - `.removePreviousFile` - Removes a previous file from the destination URL if specified.
 
@@ -616,6 +676,7 @@ You can also provide a `DownloadFileDestination` closure to move the file from t
 let destination: DownloadRequest.DownloadFileDestination = { _, _ in
 	let documentsURL = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)[0]
 	let fileURL = documentsURL.appendPathComponent("pig.png")
+<<<<<<< HEAD
 
     return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
 }
@@ -623,6 +684,15 @@ let destination: DownloadRequest.DownloadFileDestination = { _, _ in
 Alamofire.download(urlString, to: destination).response { response in
     print(response)
 
+=======
+
+    return (fileURL, [.removePreviousFile, .createIntermediateDirectories])
+}
+
+Alamofire.download(urlString, to: destination).response { response in
+    print(response)
+
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 	if response.result.isSuccess, let imagePath = response.destinationURL?.path {
 	    let image = UIImage(contentsOfFile: imagePath)
 	}
@@ -952,6 +1022,7 @@ delegate.taskWillPerformHTTPRedirection = { session, task, response, request in
 ```
 
 #### Subclassing
+<<<<<<< HEAD
 
 Another way to override the default implementation of the `SessionDelegate` is to subclass it. Subclassing allows you completely customize the behavior of the API or to create a proxy for the API and still use the default implementation. Creating a proxy allows you to log events, emit notifications, provide pre and post hook implementations, etc. Here's a quick example of subclassing the `SessionDelegate` and logging a message when a redirect occurs.
 
@@ -1005,6 +1076,61 @@ Types adopting the `URLConvertible` protocol can be used to construct URLs, whic
 let urlString = "https://httpbin.org/post"
 Alamofire.request(urlString, method: .post)
 
+=======
+
+Another way to override the default implementation of the `SessionDelegate` is to subclass it. Subclassing allows you completely customize the behavior of the API or to create a proxy for the API and still use the default implementation. Creating a proxy allows you to log events, emit notifications, provide pre and post hook implementations, etc. Here's a quick example of subclassing the `SessionDelegate` and logging a message when a redirect occurs.
+
+```swift
+class LoggingSessionDelegate: SessionDelegate {
+    override func urlSession(
+        _ session: URLSession,
+        task: URLSessionTask,
+        willPerformHTTPRedirection response: HTTPURLResponse,
+        newRequest request: URLRequest,
+        completionHandler: @escaping (URLRequest?) -> Void)
+    {
+        print("URLSession will perform HTTP redirection to request: \(request)")
+
+        super.urlSession(
+            session,
+            task: task,
+            willPerformHTTPRedirection: response,
+            newRequest: request,
+            completionHandler: completionHandler
+        )
+    }
+}
+```
+
+Generally speaking, either the default implementation or the override closures should provide the necessary functionality required. Subclassing should only be used as a last resort.
+
+> It is important to keep in mind that the `subdelegates` are initialized and destroyed in the default implementation. Be careful when subclassing to not introduce memory leaks.
+
+### Request
+
+The result of a `request`, `download`, `upload` or `stream` methods are a `DataRequest`, `DownloadRequest`, `UploadRequest` and `StreamRequest` which all inherit from `Request`. All `Request` instances are always created by an owning session manager, and never initialized directly.
+
+Each subclass has specialized methods such as `authenticate`, `validate`, `responseJSON` and `uploadProgress` that each return the caller instance in order to facilitate method chaining.
+
+Requests can be suspended, resumed and cancelled:
+
+- `suspend()`: Suspends the underlying task and dispatch queue.
+- `resume()`: Resumes the underlying task and dispatch queue. If the owning manager does not have `startRequestsImmediately` set to `true`, the request must call `resume()` in order to start.
+- `cancel()`: Cancels the underlying task, producing an error that is passed to any registered response handlers.
+
+### Routing Requests
+
+As apps grow in size, it's important to adopt common patterns as you build out your network stack. An important part of that design is how to route your requests. The Alamofire `URLConvertible` and `URLRequestConvertible` protocols along with the `Router` design pattern are here to help.
+
+#### URLConvertible
+
+Types adopting the `URLConvertible` protocol can be used to construct URLs, which are then used to construct URL requests internally. `String`, `URL`, and `URLComponents` conform to `URLConvertible` by default, allowing any of them to be passed as `url` parameters to the `request`, `upload`, and `download` methods:
+
+```swift
+let urlString = "https://httpbin.org/post"
+Alamofire.request(urlString, method: .post)
+
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 let url = URL(string: urlString)!
 Alamofire.request(url, method: .post)
 
@@ -1209,6 +1335,7 @@ class OAuth2Handler: RequestAdapter, RequestRetrier {
 
         return SessionManager(configuration: configuration)
     }()
+<<<<<<< HEAD
 
     private let lock = NSLock()
 
@@ -1246,6 +1373,45 @@ class OAuth2Handler: RequestAdapter, RequestRetrier {
     func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
         lock.lock() ; defer { lock.unlock() }
 
+=======
+
+    private let lock = NSLock()
+
+    private var clientID: String
+    private var baseURLString: String
+    private var accessToken: String
+    private var refreshToken: String
+
+    private var isRefreshing = false
+    private var requestsToRetry: [RequestRetryCompletion] = []
+
+    // MARK: - Initialization
+
+    public init(clientID: String, baseURLString: String, accessToken: String, refreshToken: String) {
+        self.clientID = clientID
+        self.baseURLString = baseURLString
+        self.accessToken = accessToken
+        self.refreshToken = refreshToken
+    }
+
+    // MARK: - RequestAdapter
+
+    func adapt(_ urlRequest: URLRequest) throws -> URLRequest {
+        if let url = urlRequest.url, url.urlString.hasPrefix(baseURLString) {
+            var urlRequest = urlRequest
+            urlRequest.setValue("Bearer " + accessToken, forHTTPHeaderField: "Authorization")
+            return urlRequest
+        }
+
+        return urlRequest
+    }
+
+    // MARK: - RequestRetrier
+
+    func should(_ manager: SessionManager, retry request: Request, with error: Error, completion: @escaping RequestRetryCompletion) {
+        lock.lock() ; defer { lock.unlock() }
+
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
         if let response = request.task.response as? HTTPURLResponse, response.statusCode == 401 {
             requestsToRetry.append(completion)
 
@@ -1362,9 +1528,15 @@ extension DataRequest {
             guard error == nil else { return .failure(BackendError.network(error: error!)) }
 
             // Use Alamofire's existing data serializer to extract the data, passing the error as nil, as it has
+<<<<<<< HEAD
             // already been handled.
             let result = Request.serializeResponseData(response: response, data: data, error: nil)
 
+=======
+            // alreaady been handled.
+            let result = Request.serializeResponseData(response: response, data: data, error: nil)
+            
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             guard case let .success(validData) = result else {
                 return .failure(BackendError.dataSerialization(error: result.error! as! AFError))
             }
@@ -1413,7 +1585,11 @@ extension DataRequest {
 
             let jsonResponseSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
             let result = jsonResponseSerializer.serializeResponse(request, response, data, nil)
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             guard case let .success(jsonObject) = result else {
                 return .failure(BackendError.jsonSerialization(error: result.error!))
             }
@@ -1498,7 +1674,11 @@ extension DataRequest {
 
             let jsonSerializer = DataRequest.jsonResponseSerializer(options: .allowFragments)
             let result = jsonSerializer.serializeResponse(request, response, data, nil)
+<<<<<<< HEAD
 
+=======
+            
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             guard case let .success(jsonObject) = result else {
                 return .failure(BackendError.jsonSerialization(error: result.error!))
             }
@@ -1696,7 +1876,11 @@ There are some important things to remember when using network reachability to d
 
 ## Open Radars
 
+<<<<<<< HEAD
 The following radars have some effect on the current implementation of Alamofire.
+=======
+The following radars have some affect on the current implementation of Alamofire.
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 
 - [`rdar://21349340`](http://www.openradar.me/radar?id=5517037090635776) - Compiler throwing warning due to toll-free bridging issue in test case
 - [`rdar://26761490`](http://www.openradar.me/radar?id=5010235949318144) - Swift string interpolation causing memory leak with common usage

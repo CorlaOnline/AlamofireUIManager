@@ -159,7 +159,11 @@ open class SessionDelegate: NSObject {
     ///
     /// - returns: `true` if the receiver implements or inherits a method that can respond to selector, otherwise `false`.
     open override func responds(to selector: Selector) -> Bool {
+<<<<<<< HEAD
         #if !os(macOS)
+=======
+        #if !os(OSX)
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             if selector == #selector(URLSessionDelegate.urlSessionDidFinishEvents(forBackgroundURLSession:)) {
                 return sessionDidFinishEventsForBackgroundURLSession != nil
             }
@@ -247,7 +251,11 @@ extension SessionDelegate: URLSessionDelegate {
         completionHandler(disposition, credential)
     }
 
+<<<<<<< HEAD
 #if !os(macOS)
+=======
+#if !os(OSX)
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 
     /// Tells the delegate that all messages enqueued for a session have been delivered.
     ///

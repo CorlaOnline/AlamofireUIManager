@@ -104,8 +104,12 @@ open class TaskDelegate: NSObject {
         } else if challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust {
             let host = challenge.protectionSpace.host
 
+<<<<<<< HEAD
             if
                 let serverTrustPolicy = session.serverTrustPolicyManager?.serverTrustPolicy(forHost: host),
+=======
+            if let serverTrustPolicy = session.serverTrustPolicyManager?.serverTrustPolicy(forHost: host),
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
                 let serverTrust = challenge.protectionSpace.serverTrust
             {
                 if serverTrustPolicy.evaluate(serverTrust, forHost: host) {

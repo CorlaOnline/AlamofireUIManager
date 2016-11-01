@@ -8,7 +8,11 @@
 
 Pod::Spec.new do |s|
   s.name             = 'AlamofireUIManager'
+<<<<<<< HEAD
   s.version          = '1.0.0'
+=======
+  s.version          = '0.1.3'
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
   s.summary          = 'A simple manager for Alamofire requests'
 
 # This description is used to generate tags and improve search results.
@@ -21,13 +25,14 @@ Pod::Spec.new do |s|
 TODO: Add long description of the pod here.
                        DESC
 
-s.homepage         = 'https://github.com/CorlaOnline/AlamofireUIManager'
-# s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
-s.license          = { :type => 'MIT', :file => 'LICENSE' }
-s.author           = { 'Alex Corlatti' => 'alex.corlatti@gmail.com' }
-s.source           = { :git => 'https://github.com/CorlaOnline/AlamofireUIManager.git', :tag => s.version.to_s }
-s.social_media_url = 'https://twitter.com/corlaonline'
+  s.homepage         = 'https://github.com/CorlaOnline/AlamofireUIManager'
+  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
+  s.license          = { :type => 'MIT', :file => 'LICENSE' }
+  s.author           = { 'Alex Corlatti' => 'alex.corlatti@gmail.com' }
+  s.source           = { :git => 'https://github.com/CorlaOnline/AlamofireUIManager.git', :tag => s.version.to_s }
+  s.social_media_url = 'https://twitter.com/corlaonline'
 
+<<<<<<< HEAD
   s.ios.deployment_target = '9.0'
   s.tvos.deployment_target = '9.0'
 
@@ -41,4 +46,13 @@ s.social_media_url = 'https://twitter.com/corlaonline'
   # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'Alamofire', '~> 4'
   s.dependency 'SwiftyJSON', '~> 3'
+=======
+  s.ios.deployment_target = '10.0'
+  s.tvos.deployment_target = '10.0'
+
+  s.source_files = 'AlamofireUIManager/Classes/**/*'
+
+  s.dependency 'Alamofire', '~> 4.0.0'
+  s.dependency 'SwiftyJSON', '~> 3.0.0'
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 end

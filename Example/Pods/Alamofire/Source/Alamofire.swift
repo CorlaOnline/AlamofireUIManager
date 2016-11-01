@@ -24,7 +24,11 @@
 
 import Foundation
 
+<<<<<<< HEAD
 /// Types adopting the `URLConvertible` protocol can be used to construct URLs, which are then used to construct
+=======
+/// Types adopting the `URLConvertible` protocol can be used to construct URLs, which are then used to construct 
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 /// URL requests.
 public protocol URLConvertible {
     /// Returns a URL that conforms to RFC 2396 or throws an `Error`.
@@ -241,7 +245,11 @@ public func download(
 
 // MARK: File
 
+<<<<<<< HEAD
 /// Creates an `UploadRequest` using the default `SessionManager` from the specified `url`, `method` and `headers`
+=======
+/// Creates an `UploadRequest` using the default `SessionManager` from the specified `url`, `method` and `headers` 
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 /// for uploading the `file`.
 ///
 /// - parameter file:    The file to upload.
@@ -275,7 +283,11 @@ public func upload(_ fileURL: URL, with urlRequest: URLRequestConvertible) -> Up
 
 // MARK: Data
 
+<<<<<<< HEAD
 /// Creates an `UploadRequest` using the default `SessionManager` from the specified `url`, `method` and `headers`
+=======
+/// Creates an `UploadRequest` using the default `SessionManager` from the specified `url`, `method` and `headers` 
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 /// for uploading the `data`.
 ///
 /// - parameter data:    The data to upload.
@@ -309,7 +321,11 @@ public func upload(_ data: Data, with urlRequest: URLRequestConvertible) -> Uplo
 
 // MARK: InputStream
 
+<<<<<<< HEAD
 /// Creates an `UploadRequest` using the default `SessionManager` from the specified `url`, `method` and `headers`
+=======
+/// Creates an `UploadRequest` using the default `SessionManager` from the specified `url`, `method` and `headers` 
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
 /// for uploading the `stream`.
 ///
 /// - parameter stream:  The stream to upload.

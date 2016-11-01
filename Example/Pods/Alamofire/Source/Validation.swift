@@ -162,7 +162,11 @@ extension DataRequest {
     /// - returns: The request.
     @discardableResult
     public func validate(_ validation: @escaping Validation) -> Self {
+<<<<<<< HEAD
         let validationExecution: () -> Void = { [unowned self] in
+=======
+        let validationExecution: () -> Void = {
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             if
                 let response = self.response,
                 self.delegate.error == nil,
@@ -186,7 +190,11 @@ extension DataRequest {
     /// - returns: The request.
     @discardableResult
     public func validate<S: Sequence>(statusCode acceptableStatusCodes: S) -> Self where S.Iterator.Element == Int {
+<<<<<<< HEAD
         return validate { [unowned self] _, response, _ in
+=======
+        return validate { _, response, _ in
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             return self.validate(statusCode: acceptableStatusCodes, response: response)
         }
     }
@@ -200,7 +208,11 @@ extension DataRequest {
     /// - returns: The request.
     @discardableResult
     public func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Self where S.Iterator.Element == String {
+<<<<<<< HEAD
         return validate { [unowned self] _, response, data in
+=======
+        return validate { _, response, data in
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             return self.validate(contentType: acceptableContentTypes, response: response, data: data)
         }
     }
@@ -238,7 +250,11 @@ extension DownloadRequest {
     /// - returns: The request.
     @discardableResult
     public func validate(_ validation: @escaping Validation) -> Self {
+<<<<<<< HEAD
         let validationExecution: () -> Void = { [unowned self] in
+=======
+        let validationExecution: () -> Void = {
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             let request = self.request
             let temporaryURL = self.downloadDelegate.temporaryURL
             let destinationURL = self.downloadDelegate.destinationURL
@@ -266,7 +282,11 @@ extension DownloadRequest {
     /// - returns: The request.
     @discardableResult
     public func validate<S: Sequence>(statusCode acceptableStatusCodes: S) -> Self where S.Iterator.Element == Int {
+<<<<<<< HEAD
         return validate { [unowned self] _, response, _, _ in
+=======
+        return validate { _, response, _, _ in
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             return self.validate(statusCode: acceptableStatusCodes, response: response)
         }
     }
@@ -280,7 +300,11 @@ extension DownloadRequest {
     /// - returns: The request.
     @discardableResult
     public func validate<S: Sequence>(contentType acceptableContentTypes: S) -> Self where S.Iterator.Element == String {
+<<<<<<< HEAD
         return validate { [unowned self] _, response, _, _ in
+=======
+        return validate { _, response, _, _ in
+>>>>>>> 2c5689334276e2619e2c80178779a88eb5416710
             let fileURL = self.downloadDelegate.fileURL
 
             guard let validFileURL = fileURL else {
