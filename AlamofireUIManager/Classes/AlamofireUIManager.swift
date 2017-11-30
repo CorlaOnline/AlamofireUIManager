@@ -135,11 +135,11 @@ open class AlamofireUIManager {
 
             anAlertIsShowed = true
 
-            delegate?.manageAlertError(error, completition: { in _ completition(Void) })
+            delegate?.manageAlertError(error, completition: { _ in completition() })
 
         } else {
 
-            completition(Void)
+            completition()
 
         }
 
