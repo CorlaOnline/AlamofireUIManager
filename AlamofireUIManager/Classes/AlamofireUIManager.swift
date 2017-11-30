@@ -10,7 +10,7 @@ import SwiftyJSON
 
 public typealias AFRequestCompletionHandler = (JSON) -> Void
 public typealias AFRequestErrorHandler = (NSError?) -> Void
-public typealias AFRequestCompletionVoid = (Void) -> Void
+public typealias AFRequestCompletionVoid = () -> ()
 
 public protocol AlamofireUIManagerDelegate {
 
@@ -135,7 +135,7 @@ open class AlamofireUIManager {
 
             anAlertIsShowed = true
 
-            delegate?.manageAlertError(error, completition: { _ in completition() })
+            delegate?.manageAlertError(error, completition: { completition() })
 
         } else {
 
