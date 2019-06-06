@@ -35,9 +35,9 @@ class ViewController: UIViewController {
 
             }, errorHandler: { error in
 
-                print("Error: \(error)")
+                print("Error: \(String(describing: error))")
                 
-                self.manageAlertError(error, completition: { _ in
+                self.manageAlertError(error, completition: { 
                 
                 
                 })
@@ -60,7 +60,7 @@ extension ViewController: AlamofireUIManagerDelegate {
 
         let act  = UIActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 50, height: 50))
         act.center = self.view.center
-        act.activityIndicatorViewStyle = .gray
+        act.style = .gray
 
         self.view.addSubview(act)
 
@@ -95,7 +95,7 @@ extension ViewController: AlamofireUIManagerDelegate {
 
     }
 
-    func manageAlertError(_ error: NSError?, completition: @escaping AFRequestCompletionVoid) {
+    func manageAlertError(_ error: NSError?, completition: @escaping () -> ()) {
 
         let alertController = UIAlertController(title: "Error", message: error?.description, preferredStyle: .alert)
 
